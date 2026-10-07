@@ -56,7 +56,7 @@ Place a page on the flatbed and press Enter when prompted. The app sets the chos
 | `q` | Quit without saving the current document; asks for confirmation if it has pages. |
 | `s` | Change between 150 and 300 DPI for subsequent pages. |
 
-PDFs are named `document_001.pdf`, `document_002.pdf`, and so on. The next number is one greater than the highest existing numbered PDF in the active output folder. Existing PDFs are never overwritten. Temporary BMP pages are removed after a successful save or confirmed `q`. If a PDF save fails, the temporary pages remain available for a retry. If the process is interrupted, temporary files remain for manual inspection; move or remove stale files before retrying the same document number. After `[x]` successfully saves the document, the active output folder opens in Windows Explorer.
+PDFs are named `document_001.pdf`, `document_002.pdf`, and so on. The next number is one greater than the highest existing numbered PDF in the active output folder. Existing PDFs are never overwritten. Temporary BMP pages are removed after a successful save or confirmed `q`. If a PDF save fails, the temporary pages remain available for a retry. If the process is interrupted, temporary files remain for manual inspection; move or remove stale files before retrying the same document number. After `[x]` successfully saves the document, an empty session `temp` folder is removed and the active output folder opens in Windows Explorer. The shared `scanner-cli\temp` folder remains in place when no named session is used.
 
 ## Scanner behavior and limits
 

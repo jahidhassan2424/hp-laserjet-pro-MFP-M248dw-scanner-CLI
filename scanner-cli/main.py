@@ -173,6 +173,17 @@ def save_document(document: int, pages: list[Path], output_dir: Path) -> bool:
     return True
 
 
+def remove_session_temp(output_dir: Path, temp_dir: Path) -> None:
+    if temp_dir != output_dir / "temp":
+        return
+    try:
+        temp_dir.rmdir()
+    except FileNotFoundError:
+        pass
+    except OSError as exc:
+        print(f"[WARNING] Could not remove the session temp folder: {exc}")
+
+
 def run() -> int:
     parser = argparse.ArgumentParser(description="Scan USB flatbed pages into numbered PDFs.")
     parser.add_argument("--list-scanners", action="store_true", help="Test WIA USB scanner detection and exit")
@@ -209,6 +220,7 @@ def run() -> int:
         elif command in ("d", "x"):
             if save_document(document, pages, output_dir):
                 if command == "x":
+                    remove_session_temp(output_dir, temp_dir)
                     try:
                         os.startfile(output_dir.resolve())
                     except OSError as exc:
