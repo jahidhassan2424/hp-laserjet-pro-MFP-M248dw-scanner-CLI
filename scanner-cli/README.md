@@ -42,7 +42,11 @@ If no device appears, check the USB cable and power, then open **Device Manager 
 
 ## Scan documents
 
-At startup, choose `150` or `300` at the DPI prompt; pressing Enter keeps the 300 DPI default. The choice applies to every page scanned in that run. Place a page on the flatbed and press Enter when prompted. The app sets the chosen DPI horizontally and vertically before every scan. If the driver rejects either setting, the scan fails with an error instead of using another DPI. After each scan:
+At startup, choose `150` or `300` at the DPI prompt; pressing Enter keeps the 300 DPI default. You can change this later with `[s]`, and the new resolution applies to the next page and later pages. A single PDF can contain pages scanned at different resolutions.
+
+The app then asks whether to create a folder for the session. Press Enter to keep using the standard `scans` and `temp` folders. Choose `y` and enter a name to store PDFs in `scanner-cli\scans\<session-name>` and temporary BMP pages in its `temp` subfolder. An existing session folder is reused, and numbering continues after its highest numbered PDF.
+
+Place a page on the flatbed and press Enter when prompted. The app sets the chosen DPI horizontally and vertically before every scan. If the driver rejects either setting, the scan fails with an error instead of using another DPI. After each scan:
 
 | Command | Action |
 | --- | --- |
@@ -50,8 +54,9 @@ At startup, choose `150` or `300` at the DPI prompt; pressing Enter keeps the 30
 | `d` | Save the current document as a PDF and immediately start the next document. |
 | `x` | Save the current document as a PDF and exit. |
 | `q` | Quit without saving the current document; asks for confirmation if it has pages. |
+| `s` | Change between 150 and 300 DPI for subsequent pages. |
 
-PDFs are saved in `scanner-cli\scans\document_001.pdf`, `document_002.pdf`, and so on. The next number is one greater than the highest existing numbered PDF. Existing PDFs are never overwritten. Temporary BMP pages are stored in `scanner-cli\temp` until the document is saved; they are removed after a successful save or confirmed `q`. If a PDF save fails, the temporary pages remain available for a retry. If the process is interrupted, temporary files remain for manual inspection; move or remove stale files before retrying the same document number.
+PDFs are named `document_001.pdf`, `document_002.pdf`, and so on. The next number is one greater than the highest existing numbered PDF in the active output folder. Existing PDFs are never overwritten. Temporary BMP pages are removed after a successful save or confirmed `q`. If a PDF save fails, the temporary pages remain available for a retry. If the process is interrupted, temporary files remain for manual inspection; move or remove stale files before retrying the same document number. After `[x]` successfully saves the document, the active output folder opens in Windows Explorer.
 
 ## Scanner behavior and limits
 
