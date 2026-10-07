@@ -42,21 +42,35 @@ If no device appears, check the USB cable and power, then open **Device Manager 
 
 ## Scan documents
 
-At startup, choose `150` or `300` at the DPI prompt; pressing Enter keeps the 300 DPI default. You can change this later with `[s]`, and the new resolution applies to the next page and later pages. A single PDF can contain pages scanned at different resolutions.
+At startup, choose a DPI using the numbered prompt:
+
+```text
+Scan DPI
+[1] 300
+[2] 150
+Enter choice:
+```
+
+Pressing Enter keeps the current DPI. You can change this later with `[s]` or `[*]`, and the new resolution applies to the next page and later pages. A single PDF can contain pages scanned at different resolutions.
 
 The app then asks whether to create a folder for the session. Press Enter to keep using the standard `scans` and `temp` folders. Choose `y` and enter a name to store PDFs in `scanner-cli\scans\<session-name>` and temporary BMP pages in its `temp` subfolder. An existing session folder is reused, and numbering continues after its highest numbered PDF.
 
-Place a page on the flatbed and press Enter when prompted. The app sets the chosen DPI horizontally and vertically before every scan. If the driver rejects either setting, the scan fails with an error instead of using another DPI. After each scan:
+The dashboard lists saved PDFs in the active output folder, including each PDF's page count and size plus overall totals. It also shows the current unsaved draft. Use `n` to place and scan the first page; the app sets the chosen DPI horizontally and vertically before every scan. If the driver rejects either setting, the scan fails with an error instead of using another DPI. Commands are:
 
 | Command | Action |
 | --- | --- |
-| `n` | Scan another page into the current document; after a failed scan, retry the same page. |
-| `d` | Save the current document as a PDF and immediately start the next document. |
-| `x` | Save the current document as a PDF and exit. |
-| `q` | Quit without saving the current document; asks for confirmation if it has pages. |
-| `s` | Change between 150 and 300 DPI for subsequent pages. |
+| `n` or `1` | Scan the next page in the current document. This is the default when the draft has no pages. |
+| `d` or `2` | Finish the current document, save it, and start a new one. This is the default when the draft has pages. |
+| `x` or `3` | Finish the current document, save it, and exit. |
+| `q` or `4` | Quit without saving the current document; asks for confirmation if it has pages. |
+| `s` or `*` | Change between 150 and 300 DPI for subsequent pages. |
+| `w` | Save the current document and return to an empty next draft without scanning. |
+| `r` | Discard the current unsaved pages after confirmation. |
+| `m` | List saved documents in the current output folder, including each PDF's page count and file size plus overall totals. You can add a page, open a PDF, or delete a PDF. |
 
 PDFs are named `document_001.pdf`, `document_002.pdf`, and so on. The next number is one greater than the highest existing numbered PDF in the active output folder. Existing PDFs are never overwritten. Temporary BMP pages are removed after a successful save or confirmed `q`. If a PDF save fails, the temporary pages remain available for a retry. If the process is interrupted, temporary files remain for manual inspection; move or remove stale files before retrying the same document number. After `[x]` successfully saves the document, an empty session `temp` folder is removed and the active output folder opens in Windows Explorer. The shared `scanner-cli\temp` folder remains in place when no named session is used.
+
+The app clears the console before the dashboard, page prompt, DPI prompt, and document manager so prior command history does not accumulate. It also clears queued key presses before the dashboard and before every page prompt. Wait until the prompt appears before pressing Enter. In the action menu, Enter deliberately selects `[d]` when the current draft has pages, or `[n]` when it does not. The document manager works only with documents in the active output folder. Adding a page updates the selected PDF; deleting a document asks for confirmation.
 
 ## Scanner behavior and limits
 
